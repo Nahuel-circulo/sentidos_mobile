@@ -3,8 +3,5 @@
   "appName": "Quasar App",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
-  "webDir": "www",
-  "server": {
-    "url": "http://172.21.240.1:9500"
-  }
+  "webDir": "www"
 }

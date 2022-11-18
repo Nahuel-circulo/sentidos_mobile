@@ -12,7 +12,7 @@
       <div class="col-8">
         <h5 class="q-my-md">Total: ${{ totalCarrito }}</h5>
       </div>
-      <div class="col text-right"><q-btn color="positive">Pagar</q-btn></div>
+      <div class="col text-right"><q-btn color="positive" :disable="productosCarrito.length == 0">Pagar</q-btn></div>
     </div>
   </q-page>
 </template>

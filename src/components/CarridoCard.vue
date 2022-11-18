@@ -2,6 +2,9 @@
   <q-card class="my-card" flat bordered>
     <q-card-section horizontal>
       <q-card-section class="q-pt-xs col-6">
+        <div v-if="productoCarrito.delivery" class="text-caption q-mt-sm q-mb-xs text-warning">
+          Apto delivery
+        </div>
         <div class="text-caption q-mt-sm q-mb-xs">
           {{ productoCarrito.name }}
         </div>
