@@ -12,7 +12,7 @@
 
         <q-toolbar-title> Sentidos </q-toolbar-title>
         <q-btn flat round dense to="/cart" icon="shopping_cart">
-          <q-badge floating color="warning">{{ 0 }}</q-badge>
+          <q-badge floating color="warning">{{ carritoCantidad }}</q-badge>
         </q-btn>
       </q-toolbar>
     </q-header>
@@ -75,7 +75,7 @@ export default defineComponent({
     const $store = useStore();
     const $router = useRouter();
     const leftDrawerOpen = ref(false);
-
+    const carritoCantidad = computed(()=> $store.getters["productos/getCarritoCantidad"])
     const cerrarSesion = () => {
       $router.push("/");
     };
@@ -87,6 +87,7 @@ export default defineComponent({
       essentialLinks: linksList,
       leftDrawerOpen,
       user,
+      carritoCantidad,
       cerrarSesion,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

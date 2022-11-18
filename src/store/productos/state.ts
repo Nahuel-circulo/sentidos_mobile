@@ -1,5 +1,16 @@
 
-
+export interface ProductoCarrito {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  image: Image;
+  delivery: boolean;
+  categoria: Categoria;
+  createdAt: string;
+  updatedAt: string;
+  cantidad:number
+}
 
 export interface Producto {
   id: string;
@@ -63,6 +74,7 @@ interface Thumbnail {
 export interface ProductosStateInterface {
   productosTe: Producto[];
   productosRestaurante: Producto[];
+  carrito: ProductoCarrito[];
   restaurantLoaded: Boolean,
   teaLoaded: Boolean,
 }
@@ -71,6 +83,7 @@ function state(): ProductosStateInterface {
   return {
     productosTe: [],
     productosRestaurante: [],
+    carrito:[],
     restaurantLoaded: false,
     teaLoaded: false,
   }
