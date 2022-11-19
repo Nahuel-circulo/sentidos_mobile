@@ -7,8 +7,8 @@
         <span class="q-pa-xs">Apto delivery</span>
       </q-badge>
       <q-card-section class="q-pa-xs">
-        <div class="text-subtitle2">{{ producto.name }}</div>
-        <div class="text-subtitle text-warning">${{ producto.price }}</div>
+        <div class="text-subtitle2 text-center">{{ producto.name }}</div>
+        <div class="text-subtitle text-warning text-center">${{ producto.price }}</div>
       </q-card-section>
       <q-card-actions class="q-pa-xs">
         <q-btn flat dense class="full-width text-positive" @click="openModal()"

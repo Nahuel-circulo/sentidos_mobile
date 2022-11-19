@@ -24,6 +24,9 @@ const mutation: MutationTree<ProductosStateInterface> = {
       }
     })
   },
+  LIMPIAR_CARRITO(state: ProductosStateInterface) {
+    state.carrito = []
+  },
 };
 
 export default mutation;

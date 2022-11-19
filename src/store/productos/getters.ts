@@ -21,15 +21,28 @@ const getters: GetterTree<ProductosStateInterface, StateInterface> = {
   getCarritoCantidad(state) {
     return state.carrito.length
   },
-  getTotalCarrito(state){
+  getTotalCarrito(state) {
     let total = 0;
     if (state.carrito.length) {
-      state.carrito.forEach((producto)=>{
-        total +=  producto.cantidad * parseInt(producto.price)   
+      state.carrito.forEach((producto) => {
+        total += producto.cantidad * parseInt(producto.price)
       })
+
     }
     return total
-    
+
+  },
+  getAptoDelivery(state) {
+    let apto = true;
+    if (state.carrito.length) {
+      state.carrito.forEach((producto) => {
+        if (!producto.delivery) {
+          apto = false
+        }
+      })
+    }
+    return apto
+
   }
 };
 

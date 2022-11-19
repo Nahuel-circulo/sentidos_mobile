@@ -42,7 +42,7 @@
         <div class="row justify-center">
           <q-btn label="Ingresar" type="submit" color="positive" />
         </div>
-        <p>Aún no tienes cuenta? Regístrate aquí</p>
+        <p>Aún no tienes cuenta? <a href="https://sentidosteahouse.vercel.app/login">Regístrate aquí</a> </p>
       </form>
     </div>
   </q-page>

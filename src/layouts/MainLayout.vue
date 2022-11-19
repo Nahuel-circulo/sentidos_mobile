@@ -75,12 +75,17 @@ export default defineComponent({
     const $store = useStore();
     const $router = useRouter();
     const leftDrawerOpen = ref(false);
-    const carritoCantidad = computed(()=> $store.getters["productos/getCarritoCantidad"])
+    const carritoCantidad = computed(
+      () => $store.getters["productos/getCarritoCantidad"]
+    );
     const cerrarSesion = () => {
       $router.push("/");
     };
-    
-    onBeforeUnmount(() => $store.commit("usuario/SET_USUARIO_LOGEADO", {}));
+
+    onBeforeUnmount(() => {
+      $store.commit("usuario/SET_USUARIO_LOGEADO", {});
+      $store.commit("productos/LIMPIAR_CARRITO", []);
+    });
     const user = computed(() => $store.getters["usuario/getUsuarioLogeado"]);
 
     return {

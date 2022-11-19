@@ -2,6 +2,7 @@
   <q-page class="column items-center justify-center content-center">
     <div >
       <p>Sentidos tea house and </p>
+      <q-btn to="/login">Login</q-btn>
     </div>
   </q-page>
 </template>
