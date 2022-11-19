@@ -77,6 +77,7 @@ export interface ProductosStateInterface {
   carrito: ProductoCarrito[];
   restaurantLoaded: Boolean,
   teaLoaded: Boolean,
+  pedidosArray:String[]
 }
 
 function state(): ProductosStateInterface {
@@ -86,6 +87,7 @@ function state(): ProductosStateInterface {
     carrito:[],
     restaurantLoaded: false,
     teaLoaded: false,
+    pedidosArray:[]
   }
 }
 

@@ -1,10 +1,7 @@
 import { MutationTree } from 'vuex';
-import { UsuarioStateInterface, MetodoDePago, Usuario } from './state';
+import { UsuarioStateInterface, MetodoDePago, Usuario, Factura } from './state';
 
 const mutation: MutationTree<UsuarioStateInterface> = {
-  SET_FACTURAS (state: UsuarioStateInterface,payload:Array<any>) {
-    state.facturas = payload
-  },
   SET_TOTAL (state: UsuarioStateInterface,payload:String) {
     state.total = payload
   },
@@ -16,6 +13,9 @@ const mutation: MutationTree<UsuarioStateInterface> = {
   },
   SET_ERROR_MESSAGE(state:UsuarioStateInterface,payload:string){
     state.errorMessage = payload
+  },
+  SET_FACTURAS(state:UsuarioStateInterface,payload:Factura[]){
+    state.facturas = payload
   }
 };
 

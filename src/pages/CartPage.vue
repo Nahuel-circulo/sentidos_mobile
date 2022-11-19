@@ -60,7 +60,7 @@
       <div class="col text-right">
         <q-btn
           color="positive"
-          @click="() => (showPagar = true)"
+          @click="() => comprarCarrito()"
           :disable="productosCarrito.length == 0"
           >Comprar carrito</q-btn
         >
@@ -80,7 +80,7 @@
         bg-color="white"
         color="warning"
         outlined
-        v-model="nombre"
+        v-model="direccion"
         label="Dirección"
         :rules="[
           (val) => val.length > 10 || 'Debe ingresar una dirección válida',
@@ -124,8 +124,8 @@
         ]"
         unmasked-value
       />
-
-      <q-btn color="positive" :disable="!isValid" @click="crearPedidos()"
+      <p></p>
+      <q-btn color="positive" :disable="!isValid" @click="crearFactura()"
         >Confirmar</q-btn
       >
     </div>
@@ -135,10 +135,15 @@
 import CarridoCard from "src/components/CarridoCard.vue";
 import { useStore } from "src/store";
 import { defineComponent, computed, ref } from "vue";
-
+import moment from "moment";
+import { useQuasar } from "quasar";
+import { ProductoCarrito } from "src/store/productos/state";
+import { useRouter } from "vue-router";
 export default defineComponent({
   components: { CarridoCard },
   setup() {
+    const $router = useRouter();
+    const $q = useQuasar();
     const entrega = ref("Sucursal");
     const $store = useStore();
     const productosCarrito = computed(
@@ -151,12 +156,23 @@ export default defineComponent({
       () => $store.getters["productos/getTotalCarrito"]
     );
     const dialog = ref(false);
+    const usuario = computed(() => $store.getters["usuario/getUsuarioLogeado"]);
 
     const cardNumber = ref("");
     const codTarjeta = ref("");
     const nombre = ref("");
+    const direccion = ref("");
     const showPagar = ref(false);
-
+    const comprarCarrito = () => {
+      showPagar.value = true;
+      productosCarrito.value.forEach((producto: ProductoCarrito) => {
+        $store.dispatch("productos/postPedido", {
+          identificador: usuario.value.id,
+          cantidad: producto.cantidad,
+          producto: producto.id,
+        });
+      });
+    };
     const isValid = computed(() => {
       return (
         cardNumber.value.length == 16 &&
@@ -164,8 +180,33 @@ export default defineComponent({
         nombre.value.length > 3
       );
     });
-    const crearPedidos = () => {
-      console.log("crea pedido");
+
+    const crearFactura = () => {
+      $q.dialog({
+        title: "Confirmar",
+        message: "Desea realizar el pago?",
+        cancel: true,
+        persistent: true,
+      })
+        /* infoPedido: { user: string, retiro: string } */
+        .onOk(() => {
+          $store.dispatch("productos/postFactura", {
+            user: usuario.value.id,
+            retiro: entrega.value,
+          });
+        })
+        .onOk(() => {
+          $q.dialog({
+            title: "Pedido generado",
+            message:
+              "Podrá visualizar su factura en la seccion mis pedidos, muchas gracias.",
+            persistent: true,
+            ok: "Ir a mis pedidos",
+          });
+        })
+        .onOk(() => {
+          $router.push("/mis-pedidos");
+        });
     };
 
     const vaciarCarrito = () => {
@@ -182,8 +223,11 @@ export default defineComponent({
       nombre,
       isValid,
       showPagar,
-      crearPedidos,
+      crearFactura,
       vaciarCarrito,
+      comprarCarrito,
+      usuario,
+      direccion
     };
   },
 });

@@ -27,6 +27,12 @@ const mutation: MutationTree<ProductosStateInterface> = {
   LIMPIAR_CARRITO(state: ProductosStateInterface) {
     state.carrito = []
   },
+  AGREGAR_PEDIDO(state:ProductosStateInterface,payload:string){
+    state.pedidosArray = [...state.pedidosArray,payload]
+  },
+  LIMPIAR_PEDIDOS(state:ProductosStateInterface){
+    state.pedidosArray = []
+  }
 };
 
 export default mutation;
