@@ -45,7 +45,7 @@
             <p class="q-ma-xs">A CONSUMIDOR FINAL</p>
             <p class="q-mt-md">Cod. Factura : {{ facturaActiva.id }}</p>
 
-            <p>Fecha: {{ facturaActiva.createdAt}}</p>
+            <p>Fecha: {{ facturaActiva.createdAt }}</p>
 
             <div>
               <div
@@ -73,7 +73,7 @@
         </q-card-section>
 
         <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn color="warning">Descargar </q-btn>
+          <q-btn color="warning" @click="generarPDF">Descargar </q-btn>
           <q-btn flat label="OK" v-close-popup />
         </q-card-actions>
       </q-card>
@@ -84,6 +84,9 @@
 import { useStore } from "src/store";
 import { defineComponent, computed, ref } from "vue";
 import { Factura } from "../store/user/state";
+import { jsPDF } from "jspdf";
+
+import { exportFile, openURL } from "quasar";
 
 export default defineComponent({
   setup() {
@@ -110,12 +113,32 @@ export default defineComponent({
       console.log(factura.id);
       dialog.value = true;
     };
+
+    const factura = ref();
+
+    const generarPDF = () => {
+      console.log(factura.value);
+      let doc = new jsPDF();
+      doc.html(factura.value, {
+        callback: async (doc)=> {
+          await doc.save("factura-sentidos.pdf");
+        },
+        margin: [10, 10, 10, 10],
+        autoPaging: "text",
+        x: 0,
+        y: 0,
+        width: 200,
+        windowWidth: 350,
+      });
+    };
     return {
       facturas,
       columns,
       dialog,
       verFactura,
       facturaActiva,
+      generarPDF,
+      factura,
     };
   },
 });
