@@ -18,11 +18,12 @@
     </p>
     <div class="row justify-center items-center q-pa-lg">
       <div class="q-gutter-sm column">
-        <q-list v-if="productosCarrito.length">
+        
+        <q-list  v-if="productosCarrito.length">
           <q-item tag="label" v-ripple>
             <q-item-section avatar>
               <q-radio
-                :disable="!aptoDelivery"
+                :disable="!aptoDelivery ||hora >= 21 "
                 v-model="entrega"
                 val="Domicilio"
                 color="teal"
@@ -36,7 +37,8 @@
                 >No disponible, posee productos no aptos para envío
               </q-item-label>
               <q-item-label caption class="text-red"
-                >Solo disponible 30 cuadras a la redonda
+                >Solo disponible 30 cuadras a la redonda y los pedidos se toman hasta las 21 hs
+              
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -157,7 +159,9 @@ export default defineComponent({
     );
     const dialog = ref(false);
     const usuario = computed(() => $store.getters["usuario/getUsuarioLogeado"]);
-
+    /* TODO: horario de delivery */
+    const hora = parseInt(  moment().subtract(3,'hours').format('HH'))
+    
     const cardNumber = ref("");
     const codTarjeta = ref("");
     const nombre = ref("");
@@ -173,6 +177,7 @@ export default defineComponent({
         });
       });
     };
+
     const isValid = computed(() => {
       return (
         cardNumber.value.length == 16 &&
@@ -227,7 +232,8 @@ export default defineComponent({
       vaciarCarrito,
       comprarCarrito,
       usuario,
-      direccion
+      direccion,
+      hora
     };
   },
 });

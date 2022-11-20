@@ -34,7 +34,7 @@ const actions: ActionTree<ProductosStateInterface, StateInterface> = {
     }
   },
   postFactura: async ({ commit, state, getters }, infoPedido: { user: string, retiro: string }) => {
-    /* TODO:fix usuario */
+   
 
     try {
       const { data } = await payloadAPI.post('/factura', {

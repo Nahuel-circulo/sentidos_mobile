@@ -35,7 +35,7 @@
         class="column full-height"
         style="width: 300px"
       >
-        <q-card-section class="col q-pt-none">
+        <q-card-section class="col q-pt-md ">
           <div id="factura" ref="factura">
             <p class="q-ma-xs">Sentidos Tea House & Restaurant</p>
             <p class="q-ma-xs">C.U.I.T. Nro 30692138747</p>
@@ -86,8 +86,6 @@ import { defineComponent, computed, ref } from "vue";
 import { Factura } from "../store/user/state";
 import { jsPDF } from "jspdf";
 
-import { exportFile, openURL } from "quasar";
-
 export default defineComponent({
   setup() {
     const $store = useStore();
@@ -120,8 +118,8 @@ export default defineComponent({
       console.log(factura.value);
       let doc = new jsPDF();
       doc.html(factura.value, {
-        callback: async (doc)=> {
-          await doc.save("factura-sentidos.pdf");
+        callback: (pdf)=> {
+          pdf.save('factura')
         },
         margin: [10, 10, 10, 10],
         autoPaging: "text",
@@ -129,8 +127,9 @@ export default defineComponent({
         y: 0,
         width: 200,
         windowWidth: 350,
-      });
+      })
     };
+
     return {
       facturas,
       columns,
