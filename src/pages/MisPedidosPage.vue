@@ -84,7 +84,7 @@
 import { useStore } from "src/store";
 import { defineComponent, computed, ref } from "vue";
 import { Factura } from "../store/user/state";
-import { jsPDF } from "jspdf";
+import {openURL} from 'quasar';
 
 export default defineComponent({
   setup() {
@@ -115,19 +115,7 @@ export default defineComponent({
     const factura = ref();
 
     const generarPDF = () => {
-      console.log(factura.value);
-      let doc = new jsPDF();
-      doc.html(factura.value, {
-        callback: (pdf)=> {
-          pdf.save('factura')
-        },
-        margin: [10, 10, 10, 10],
-        autoPaging: "text",
-        x: 0,
-        y: 0,
-        width: 200,
-        windowWidth: 350,
-      })
+      openURL(`https://sentidos-pdf.vercel.app/pdf/${facturaActiva.value.id}`)
     };
 
     return {

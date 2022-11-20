@@ -7,7 +7,7 @@ import getters from './getters';
 const actions: ActionTree<ProductosStateInterface, StateInterface> = {
   async fetchProductosRestaurante({ state, commit }) {
     commit('SET_RESTAURANT_LOADED', false)
-    const { data } = await payloadAPI.get(`/producto?where[categoria][equals]=6362d349c20c424d4b387d6c`)
+    const { data } = await payloadAPI.get(`/producto?where[categoria][equals]=6362d349c20c424d4b387d6c&where[disponible][equals]=true`)
     commit('SET_PRODUCTOS_RESTAURANTE', data.docs)
     commit('SET_RESTAURANT_LOADED', true)
     console.log("restaurante ", data.docs)
@@ -15,7 +15,7 @@ const actions: ActionTree<ProductosStateInterface, StateInterface> = {
   },
   async fetchProductosTe({ state, commit }) {
     commit('SET_TEA_LOADED', false)
-    const { data } = await payloadAPI.get(`/producto?where[categoria][equals]=6362d378c20c424d4b387d8b`)
+    const { data } = await payloadAPI.get(`/producto?where[categoria][equals]=6362d378c20c424d4b387d8b&where[disponible][equals]=true`)
     commit('SET_PRODUCTOS_TE', data.docs)
     commit('SET_TEA_LOADED', true)
     console.log("casa de te ", data.docs)
